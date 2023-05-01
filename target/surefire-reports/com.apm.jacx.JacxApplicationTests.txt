@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.apm.jacx.JacxApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.752 s - in com.apm.jacx.JacxApplicationTests
