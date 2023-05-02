@@ -1,10 +1,10 @@
-FROM maven:3.8.3-openjdk-17 AS build
+FROM maven:3.9.1-eclipse-temurin-17 AS build
 
 COPY . /usr/src/
 
 RUN mvn -f /usr/src/pom.xml clean package -DskipTests
 
-FROM openjdk:11-jdk-alpine
+FROM openjdk:17-jdk-alpine
 
 COPY --from=build /usr/src/target/jacx-0.0.1-SNAPSHOT.jar /usr/src/
 
