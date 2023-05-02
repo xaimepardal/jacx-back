@@ -4,7 +4,7 @@ COPY . /usr/src/
 
 RUN mvn -f /usr/src/pom.xml clean package -DskipTests
 
-FROM openjdk:17-jdk-alpine
+FROM openjdk:11-jdk-alpine
 
 COPY --from=build /usr/src/target/jacx-0.0.1-SNAPSHOT.jar /usr/src/
 
