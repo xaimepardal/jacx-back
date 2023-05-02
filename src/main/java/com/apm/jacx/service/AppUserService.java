@@ -1,6 +1,6 @@
 package com.apm.jacx.service;
 
-import com.apm.jacx.model.User;
+import com.apm.jacx.model.AppUser;
 import com.apm.jacx.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,24 +9,24 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UserService {
+public class AppUserService {
 
     @Autowired
     private UserRepository userRepository;
 
-    public User create (User user) {
-        return userRepository.save(user);
+    public AppUser create (AppUser appUser) {
+        return userRepository.save(appUser);
     }
 
-    public List<User> getAllUsers() {
+    public List<AppUser> getAllUsers() {
         return userRepository.findAll();
     }
 
-    public void delete (User user) {
-        userRepository.delete(user);
+    public void delete (AppUser appUser) {
+        userRepository.delete(appUser);
     }
 
-    public Optional<User> findById (Long id) {
+    public Optional<AppUser> findById (Long id) {
         return userRepository.findById(id);
     }
 }

@@ -11,8 +11,8 @@ public class UserImage {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "um_user")
-    private UMUser umUser;
+    @JoinColumn(name = "app_user")
+    private AppUser appUser;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "image")

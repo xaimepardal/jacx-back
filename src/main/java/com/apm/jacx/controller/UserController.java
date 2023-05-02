@@ -1,7 +1,7 @@
 package com.apm.jacx.controller;
 
-import com.apm.jacx.model.User;
-import com.apm.jacx.service.UserService;
+import com.apm.jacx.model.AppUser;
+import com.apm.jacx.service.AppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,13 +16,13 @@ import java.util.Optional;
 public class UserController {
 
     @Autowired
-    private UserService userService;
+    private AppUserService userService;
 
 
     @PostMapping(value = "/user")
-    private ResponseEntity<User> create(@RequestBody User user) {
+    private ResponseEntity<AppUser> create(@RequestBody AppUser appUser) {
         try {
-            User tmp = userService.create(user);
+            AppUser tmp = userService.create(appUser);
             return ResponseEntity.created(new URI("api/user/" + tmp.getId())).body(tmp);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
@@ -31,9 +31,9 @@ public class UserController {
 
 
     @GetMapping(value = "/users")
-    private ResponseEntity<List<User>> getAll() {
+    private ResponseEntity<List<AppUser>> getAll() {
         try {
-            List<User> tmp = userService.getAllUsers();
+            List<AppUser> tmp = userService.getAllUsers();
             return ResponseEntity.ok(tmp);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
@@ -42,9 +42,9 @@ public class UserController {
 
 
     @DeleteMapping(value = "/user")
-    private ResponseEntity<Void> delete(@RequestBody User user) {
+    private ResponseEntity<Void> delete(@RequestBody AppUser appUser) {
         try {
-            userService.delete(user);
+            userService.delete(appUser);
             return ResponseEntity.ok().build();
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
@@ -53,9 +53,9 @@ public class UserController {
 
 
     @GetMapping(value = "/user/{id}")
-    private ResponseEntity<Optional<User>> getByID(@PathVariable("id") Long id) {
+    private ResponseEntity<Optional<AppUser>> getByID(@PathVariable("id") Long id) {
         try {
-            Optional<User> tmp = userService.findById(id);
+            Optional<AppUser> tmp = userService.findById(id);
             return ResponseEntity.ok(tmp);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();

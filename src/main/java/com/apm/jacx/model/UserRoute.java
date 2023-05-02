@@ -15,6 +15,6 @@ public class UserRoute {
     private Route route;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "um_user")
-    private UMUser umUser;
+    @JoinColumn(name = "app_user")
+    private AppUser appUser;
 }

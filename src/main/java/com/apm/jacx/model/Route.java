@@ -2,6 +2,7 @@ package com.apm.jacx.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.springframework.data.geo.Point;
 
 import java.time.LocalDateTime;
 import java.util.List;
