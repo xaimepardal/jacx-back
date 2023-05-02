@@ -1,7 +1,7 @@
 package com.apm.jacx.service;
 
 import com.apm.jacx.model.AppUser;
-import com.apm.jacx.repository.UserRepository;
+import com.apm.jacx.repository.AppUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +12,7 @@ import java.util.Optional;
 public class AppUserService {
 
     @Autowired
-    private UserRepository userRepository;
+    private AppUserRepository userRepository;
 
     public AppUser create (AppUser appUser) {
         return userRepository.save(appUser);
