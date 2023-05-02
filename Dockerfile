@@ -10,6 +10,6 @@ COPY --from=build /usr/src/target/jacx-0.0.1-SNAPSHOT.jar /usr/src/
 
 WORKDIR /usr/src/
 
-EXPOSE 80
+EXPOSE 8080
 
 CMD ["java", "-jar", "jacx-0.0.1-SNAPSHOT.jar"]
