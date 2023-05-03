@@ -17,7 +17,7 @@ public class Friends {
     private AppUser appUser;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "app_user")
+    @JoinColumn(name = "friend")
     private AppUser friend;
 
 }
