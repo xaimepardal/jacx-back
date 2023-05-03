@@ -16,7 +16,4 @@ public class Song {
 
     @Column(name = "spotify_id")
     private String spotifyId;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "song")
-    private List<RouteSong> routeSongs;
 }
