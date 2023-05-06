@@ -1,8 +1,10 @@
 package com.apm.jacx.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
+
+import java.util.List;
+import java.util.Set;
 
 @Entity(name = "t_app_user")
 @Table(name = "t_app_user")
@@ -14,11 +16,13 @@ public class AppUser {
     private Long id;
 
     @Column(unique = true, nullable = false)
-    private String login;
+    private String username;
 
-    @JsonIgnore
     @Column(name = "password_hash")
     private String password;
+
+    @Column(name = "user_token")
+    private String userToken;
 
     @Column(name = "first_name")
     private String firstName;
@@ -28,4 +32,19 @@ public class AppUser {
 
     @Column(unique = true)
     private String email;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    private List<AppUser> friends;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    private Set<Route> route;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<Playlist> playlists;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<Image> images;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<Route> routesCreated;
 }

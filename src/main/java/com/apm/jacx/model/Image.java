@@ -4,11 +4,12 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.List;
+import java.util.Set;
 
 @Entity(name = "t_images")
 @Table(name = "t_images")
 @Data
-public class Images {
+public class Image {
 
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,6 +23,6 @@ public class Images {
         @JoinColumn(name = "route")
         private Route route;
 
-        @OneToMany(fetch = FetchType.LAZY, mappedBy = "image")
-        private List<UserImage> userImage;
+        @ManyToMany(fetch = FetchType.LAZY)
+        private Set<AppUser> owner;
 }

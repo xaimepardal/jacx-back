@@ -1,8 +1,6 @@
 package com.apm.jacx.service;
 
-import com.apm.jacx.model.Route;
-import com.apm.jacx.model.Song;
-import com.apm.jacx.repository.RouteRepository;
+import com.apm.jacx.model.Playlist;
 import com.apm.jacx.repository.SongRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,19 +13,21 @@ public class SongService {
     @Autowired
     private SongRepository songRepository;
 
-    public Song create (Song song) {
-        return songRepository.save(song);
+    public Playlist create (Playlist playlist) {
+        return songRepository.save(playlist);
     }
 
-    public List<Song> getAll() {
+    public List<Playlist> getAll() {
         return songRepository.findAll();
     }
 
-    public void delete (Song song) {
-        songRepository.delete(song);
+    public void delete (Playlist playlist) {
+        songRepository.delete(playlist);
     }
 
-    public Optional<Song> findById (Long id) {
+    public Optional<Playlist> findById (Long id) {
         return songRepository.findById(id);
     }
+
+    public Playlist update(Playlist playlist) { return songRepository.save(playlist); }
 }

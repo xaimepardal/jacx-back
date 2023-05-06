@@ -1,6 +1,6 @@
 package com.apm.jacx.controller;
 
-import com.apm.jacx.model.Song;
+import com.apm.jacx.model.Playlist;
 import com.apm.jacx.service.SongService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,27 +17,33 @@ public class SongController {
     @Autowired
     private SongService songService;
 
-    @PostMapping(value = "/song")
-    private ResponseEntity<Song> create(@RequestBody Song song) throws URISyntaxException {
-        Song tmp = songService.create(song);
-        return ResponseEntity.created(new URI("api/song/" + tmp.getId())).body(tmp);
+    @PostMapping(value = "/playlist")
+    private ResponseEntity<Playlist> create(@RequestBody Playlist playlist) throws URISyntaxException {
+        Playlist tmp = songService.create(playlist);
+        return ResponseEntity.created(new URI("api/playlist/" + tmp.getId())).body(tmp);
     }
 
-    @GetMapping(value = "/songs")
-    private ResponseEntity<List<Song>> getAll() {
-        List<Song> tmp = songService.getAll();
+    @PutMapping(value = "/playlist")
+    private ResponseEntity<Playlist> update(@RequestBody Playlist playlist) {
+        Playlist tmp = songService.create(playlist);
         return ResponseEntity.ok(tmp);
     }
 
-    @DeleteMapping(value = "/song")
-    private ResponseEntity<Void> delete(@RequestBody Song song) {
-        songService.delete(song);
+    @GetMapping(value = "/songs")
+    private ResponseEntity<List<Playlist>> getAll() {
+        List<Playlist> tmp = songService.getAll();
+        return ResponseEntity.ok(tmp);
+    }
+
+    @DeleteMapping(value = "/playlist")
+    private ResponseEntity<Void> delete(@RequestBody Playlist playlist) {
+        songService.delete(playlist);
         return ResponseEntity.ok().build();
     }
 
     @GetMapping(value = "/song/{id}")
-    private ResponseEntity<Optional<Song>> getByID(@PathVariable("id") Long id) {
-        Optional<Song> tmp = songService.findById(id);
+    private ResponseEntity<Optional<Playlist>> getByID(@PathVariable("id") Long id) {
+        Optional<Playlist> tmp = songService.findById(id);
         return ResponseEntity.ok(tmp);
     }
 }

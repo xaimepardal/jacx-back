@@ -23,6 +23,12 @@ public class RouteController {
         return ResponseEntity.created(new URI("api/route/" + tmp.getId())).body(tmp);
     }
 
+    @PutMapping(value = "/route")
+    private ResponseEntity<Route> update(@RequestBody Route route) {
+        Route tmp = routeService.create(route);
+        return ResponseEntity.ok(tmp);
+    }
+
     @GetMapping(value = "/routes")
     private ResponseEntity<List<Route>> getAll() {
         List<Route> tmp = routeService.getAll();

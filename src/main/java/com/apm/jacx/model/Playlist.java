@@ -3,12 +3,10 @@ package com.apm.jacx.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.util.List;
-
-@Entity(name = "t_song")
-@Table(name = "t_song")
+@Entity(name = "t_playlist")
+@Table(name = "t_playlist")
 @Data
-public class Song {
+public class Playlist {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true)
@@ -16,4 +14,12 @@ public class Song {
 
     @Column(name = "spotify_id")
     private String spotifyId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "song")
+    private Route route;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "owner")
+    private AppUser owner;
 }

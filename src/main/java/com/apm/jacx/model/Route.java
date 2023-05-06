@@ -2,7 +2,6 @@ package com.apm.jacx.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import org.springframework.data.geo.Point;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -16,11 +15,11 @@ public class Route {
     @Column(name = "id", unique = true)
     private Long id;
 
-    @Column(name = "begin", columnDefinition = "geometry(Point, 4326)")
-    private Point begin;
+    @Column(name = "begin")
+    private String begin;
 
-    @Column(name = "finish", columnDefinition = "geometry(Point, 4326)")
-    private Point finish;
+    @Column(name = "finish")
+    private String finish;
 
     @Column(name = "start_date")
     private LocalDateTime startDate;
@@ -31,12 +30,16 @@ public class Route {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "route")
-    private List<UserRoute> users;
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "route")
+    private List<AppUser> users;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "route")
-    private List<Images> images;
+    private List<Image> images;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "route")
-    private List<RouteSong> routeSongs;
+    private List<Playlist> playlists;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "owner")
+    private AppUser owner;
 }

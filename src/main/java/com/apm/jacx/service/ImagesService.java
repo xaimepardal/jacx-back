@@ -1,8 +1,7 @@
 package com.apm.jacx.service;
 
 import com.apm.jacx.model.AppUser;
-import com.apm.jacx.model.Images;
-import com.apm.jacx.repository.AppUserRepository;
+import com.apm.jacx.model.Image;
 import com.apm.jacx.repository.ImagesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,19 +14,21 @@ public class ImagesService {
     @Autowired
     private ImagesRepository imagesRepository;
 
-    public Images create (Images images) {
-        return imagesRepository.save(images);
+    public Image create (Image image) {
+        return imagesRepository.save(image);
     }
 
-    public List<Images> getAll() {
+    public List<Image> getAll() {
         return imagesRepository.findAll();
     }
 
-    public void delete (Images images) {
-        imagesRepository.delete(images);
+    public void delete (Image image) {
+        imagesRepository.delete(image);
     }
 
-    public Optional<Images> findById (Long id) {
+    public Optional<Image> findById (Long id) {
         return imagesRepository.findById(id);
     }
+
+    public Image update(Image image) { return imagesRepository.save(image); }
 }
