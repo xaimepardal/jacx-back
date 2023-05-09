@@ -1,12 +1,11 @@
 package com.apm.jacx.service;
 
 import com.apm.jacx.model.AppUser;
-import com.apm.jacx.model.LoginModel;
-import com.apm.jacx.model.LoginResponse;
+import com.apm.jacx.model.dtos.LoginModel;
+import com.apm.jacx.model.dtos.LoginResponse;
 import com.apm.jacx.repository.AppUserRepository;
 import com.google.common.hash.Hashing;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
 import javax.naming.AuthenticationException;
@@ -40,12 +39,28 @@ public class AppUserService {
         userRepository.delete(appUser);
     }
 
-    public Optional<AppUser> findById(Long id) {
-        return userRepository.findById(id);
+    public AppUser findById(Long id) {
+        return userRepository.getReferenceById(id);
     }
 
     public AppUser update(AppUser appUser) {
-        return userRepository.save(appUser);
+        AppUser user = findById(appUser.getId());
+        if (appUser.getUsername() != null) {
+            user.setUsername(appUser.getUsername());
+        }
+        if (appUser.getLastName() != null) {
+            user.setLastName(appUser.getLastName());
+        }
+        if (appUser.getFirstName() != null) {
+            user.setFirstName(appUser.getFirstName());
+        }
+        if (appUser.getBirthday() != null) {
+            user.setBirthday(appUser.getBirthday());
+        }
+        if (appUser.getEmail() != null) {
+            user.setEmail(appUser.getEmail());
+        }
+        return userRepository.save(user);
     }
 
     public AppUser findByUsername(String username) {
@@ -69,16 +84,11 @@ public class AppUserService {
             random.nextBytes(bytes);
             String token = Arrays.toString(bytes).replaceAll(", |\\[|\\]|\\-", "");
 
-            Optional<AppUser> tmp = findById(appUser.getId());
-            if (tmp.isPresent()) {
-                AppUser tmp2 = tmp.get();
-                tmp2.setUserToken(token);
-                update(tmp2);
+            AppUser tmp = findById(appUser.getId());
+            tmp.setUserToken(token);
+            update(tmp);
+            return new LoginResponse(token);
 
-                return new LoginResponse(token);
-            } else {
-                throw new RuntimeException();
-            }
         } else {
             throw new AuthenticationException();
         }

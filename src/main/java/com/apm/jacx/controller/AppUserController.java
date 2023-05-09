@@ -1,8 +1,7 @@
 package com.apm.jacx.controller;
 
-import ch.qos.logback.core.joran.action.AppenderAction;
 import com.apm.jacx.model.AppUser;
-import com.apm.jacx.model.ChangePasswordModel;
+import com.apm.jacx.model.dtos.ChangePasswordModel;
 import com.apm.jacx.service.AppUserService;
 import com.google.common.hash.Hashing;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")

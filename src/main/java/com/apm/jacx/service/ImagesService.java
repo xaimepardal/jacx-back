@@ -18,17 +18,13 @@ public class ImagesService {
         return imagesRepository.save(image);
     }
 
-    public List<Image> getAll() {
-        return imagesRepository.findAll();
-    }
-
     public void delete (Image image) {
         imagesRepository.delete(image);
     }
 
-    public Optional<Image> findById (Long id) {
-        return imagesRepository.findById(id);
-    }
+    public Image getById (Long id) { return imagesRepository.getReferenceById(id); }
 
-    public Image update(Image image) { return imagesRepository.save(image); }
+    public List<Image> findByOwner(AppUser appUser) {
+        return imagesRepository.findAllByOwner(appUser);
+    }
 }

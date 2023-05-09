@@ -1,19 +1,16 @@
 package com.apm.jacx.controller;
 
-import com.apm.jacx.model.AddFriendByUsername;
+import com.apm.jacx.model.dtos.AddFriendByUsername;
 import com.apm.jacx.model.AppUser;
-import com.apm.jacx.model.Friend;
+import com.apm.jacx.model.dtos.Friend;
 import com.apm.jacx.service.AppUserService;
 import com.apm.jacx.service.FriendService;
-import com.fasterxml.jackson.databind.introspect.DefaultAccessorNamingStrategy;
-import com.google.common.hash.Hashing;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 @RestController

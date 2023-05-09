@@ -1,10 +1,9 @@
 package com.apm.jacx.service;
 
 import com.apm.jacx.model.AppUser;
-import com.apm.jacx.model.Friend;
+import com.apm.jacx.model.dtos.Friend;
 import com.apm.jacx.repository.AppUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

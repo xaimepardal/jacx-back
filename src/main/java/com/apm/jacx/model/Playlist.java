@@ -1,5 +1,7 @@
 package com.apm.jacx.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -15,11 +17,14 @@ public class Playlist {
     @Column(name = "spotify_id")
     private String spotifyId;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "song")
+    @JoinColumn(name = "route")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Route route;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private AppUser owner;
 }

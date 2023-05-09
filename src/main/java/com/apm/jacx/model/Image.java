@@ -1,5 +1,7 @@
 package com.apm.jacx.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -19,10 +21,14 @@ public class Image {
         @Column(name = "base64")
         private String base64;
 
+        @JsonIgnore
         @ManyToOne(fetch = FetchType.LAZY)
+        @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
         @JoinColumn(name = "route")
         private Route route;
 
-        @ManyToMany(fetch = FetchType.LAZY)
-        private Set<AppUser> owner;
+        @ManyToOne(fetch = FetchType.LAZY)
+        @JoinColumn(name = "owner")
+        @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+        private AppUser owner;
 }

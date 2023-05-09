@@ -1,4 +1,4 @@
-package com.apm.jacx.model;
+package com.apm.jacx.model.dtos;
 
 import lombok.Data;
 

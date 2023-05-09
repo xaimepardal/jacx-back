@@ -1,9 +1,8 @@
 package com.apm.jacx.controller;
 
 import com.apm.jacx.model.AppUser;
-import com.apm.jacx.model.LoginModel;
-import com.apm.jacx.model.LoginResponse;
-import com.apm.jacx.repository.AppUserRepository;
+import com.apm.jacx.model.dtos.LoginModel;
+import com.apm.jacx.model.dtos.LoginResponse;
 import com.apm.jacx.service.AppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -12,8 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.naming.AuthenticationException;
-import java.net.URI;
-import java.net.URISyntaxException;
 
 @RestController
 @RequestMapping("/api")
