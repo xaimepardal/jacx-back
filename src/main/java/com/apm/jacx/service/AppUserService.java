@@ -7,6 +7,7 @@ import com.apm.jacx.repository.AppUserRepository;
 import com.google.common.hash.Hashing;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.naming.AuthenticationException;
 import java.nio.charset.StandardCharsets;
@@ -28,7 +29,7 @@ public class AppUserService {
                 .toString();
         appUser.setPassword(sha256hex);
 
-        return userRepository.save(appUser);
+        return userRepository.saveAndFlush(appUser);
     }
 
     public List<AppUser> getAll() {
@@ -60,7 +61,7 @@ public class AppUserService {
         if (appUser.getEmail() != null) {
             user.setEmail(appUser.getEmail());
         }
-        return userRepository.save(user);
+        return userRepository.saveAndFlush(user);
     }
 
     public AppUser findByUsername(String username) {

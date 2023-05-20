@@ -1,17 +1,8 @@
 package com.apm.jacx.controller;
 
-import com.apm.jacx.model.AppUser;
-import com.apm.jacx.model.Image;
-import com.apm.jacx.model.Playlist;
-import com.apm.jacx.model.Route;
-import com.apm.jacx.model.dtos.RouteImage;
-import com.apm.jacx.model.dtos.RouteModel;
-import com.apm.jacx.model.dtos.RoutePlaylist;
-import com.apm.jacx.model.dtos.RouteUser;
-import com.apm.jacx.service.AppUserService;
-import com.apm.jacx.service.ImagesService;
-import com.apm.jacx.service.PlaylistService;
-import com.apm.jacx.service.RouteService;
+import com.apm.jacx.model.*;
+import com.apm.jacx.model.dtos.*;
+import com.apm.jacx.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -36,6 +27,9 @@ public class RouteController {
 
     @Autowired
     private ImagesService imagesService;
+
+    @Autowired
+    private WayPointService wayPointService;
 
     @PostMapping(value = "/route")
     private ResponseEntity<Route> create(@RequestBody RouteModel routeModel, @RequestHeader(HttpHeaders.AUTHORIZATION) String token) throws URISyntaxException {
@@ -92,12 +86,14 @@ public class RouteController {
             if (playlist == null) {
                 Playlist playlistNew = new Playlist();
                 playlistNew.setSpotifyId(routePlaylist.getSpotifyID());
+                playlistNew.setAppUser(appUser);
                 playlist = playlistService.create(playlistNew);
             }
-            List<Playlist> playlistsList = route.getPlaylists();
-            playlistsList.add(playlist);
-            route.setPlaylists(playlistsList);
-            route = routeService.update(route);
+            route.getPlaylists().add(playlist);
+            routeService.update(route);
+            playlist.setRoute(route);
+            playlistService.create(playlist);
+            route = routeService.findByName(routePlaylist.getRouteName());
             return ResponseEntity.ok(route);
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
@@ -115,6 +111,8 @@ public class RouteController {
             }
             route.getPlaylists().remove(playlist);
             playlistService.delete(playlist);
+            playlist.setRoute(null);
+            playlistService.create(playlist);
             route = routeService.update(route);
             return ResponseEntity.ok(route);
         } else {
@@ -129,10 +127,10 @@ public class RouteController {
             Route route = routeService.findByName(routeImage.getRouteName());
             Image image = imagesService.getById(routeImage.getImageId());
 
-            List<Image> imageList = route.getImages();
-            imageList.add(image);
-            route.setImages(imageList);
+            route.getImages().add(image);
             route = routeService.update(route);
+            image.setRoute(route);
+            imagesService.create(image);
             return ResponseEntity.ok(route);
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
@@ -146,10 +144,10 @@ public class RouteController {
             Route route = routeService.findByName(routeImage.getRouteName());
             Image image = imagesService.getById(routeImage.getImageId());
 
-            List<Image> imageList = route.getImages();
-            imageList.remove(image);
-            route.setImages(imageList);
+            route.getImages().remove(image);
             route = routeService.update(route);
+            image.setRoute(null);
+            imagesService.create(image);
             return ResponseEntity.ok(route);
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
@@ -163,10 +161,10 @@ public class RouteController {
             Route route = routeService.findByName(routeUser.getRouteName());
             AppUser appUserToAdd = userService.findByUsername(routeUser.getUsername());
 
-            List<AppUser> appUserList = route.getUsers();
-            appUserList.add(appUserToAdd);
-            route.setUsers(appUserList);
+            route.getUsers().add(appUserToAdd);
             route = routeService.update(route);
+           /* appUserToAdd.getRoute().add(route);
+            userService.create(appUserToAdd);*/
             return ResponseEntity.ok(route);
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
@@ -180,10 +178,45 @@ public class RouteController {
             Route route = routeService.findByName(routeUser.getRouteName());
             AppUser appUserToAdd = userService.findByUsername(routeUser.getUsername());
 
-            List<AppUser> appUserList = route.getUsers();
-            appUserList.remove(appUserToAdd);
-            route.setUsers(appUserList);
+            route.getUsers().remove(appUserToAdd);
             route = routeService.update(route);
+            appUserToAdd.getRoute().remove(route);
+            userService.create(appUserToAdd);
+            return ResponseEntity.ok(route);
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+    }
+
+    @PostMapping(value = "/route/waypoint")
+    private ResponseEntity<Route> addWaypointToRoute(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @RequestBody RouteWayPoint routeWayPoint) {
+        AppUser appUser = userService.checkToken(token);
+        if (appUser != null) {
+            Route route = routeService.findByName(routeWayPoint.getRouteName());
+            WayPoint wayPoint = wayPointService.findById(routeWayPoint.getWaypointId());
+
+            route.getWayPoints().add(wayPoint);
+            route = routeService.update(route);
+            wayPoint.setRoute(route);
+            wayPoint.setOrderPosition(route.getWayPoints().size());
+            wayPointService.create(wayPoint);
+            return ResponseEntity.ok(route);
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+    }
+
+    @DeleteMapping(value = "/route/waypoint")
+    private ResponseEntity<Route> deleteWaypointToRoute(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @RequestBody RouteWayPoint routeWayPoint) {
+        AppUser appUser = userService.checkToken(token);
+        if (appUser != null) {
+            Route route = routeService.findByName(routeWayPoint.getRouteName());
+            WayPoint wayPoint = wayPointService.findById(routeWayPoint.getWaypointId());
+
+            route.getWayPoints().remove(wayPoint);
+            route = routeService.update(route);
+            wayPoint.setRoute(null);
+            wayPointService.create(wayPoint);
             return ResponseEntity.ok(route);
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();

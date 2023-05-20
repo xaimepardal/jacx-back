@@ -7,6 +7,7 @@ import com.apm.jacx.model.dtos.RouteModel;
 import com.apm.jacx.repository.RouteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -25,9 +26,6 @@ public class RouteService {
         if (routeModel.getBegin() != null) {
             route.setBegin(routeModel.getBegin());
         }
-        if (routeModel.getStops() != null) {
-            route.setStops(routeModel.getStops());
-        }
         if (routeModel.getFinish() != null) {
             route.setFinish(routeModel.getFinish());
         }
@@ -37,8 +35,8 @@ public class RouteService {
         if (routeModel.getEndDate() != null) {
             route.setEndDate(routeModel.getEndDate());
         }
-        route.setOwner(user);
-        return routeRepository.save(route);
+        route.setAppUser(user);
+        return routeRepository.saveAndFlush(route);
     }
 
     public List<Route> getAll() {
@@ -50,7 +48,7 @@ public class RouteService {
     }
 
     public List<Route> findByOwner(AppUser user) {
-        return routeRepository.findAllByOwner(user);
+        return routeRepository.findAllByAppUser(user);
     }
 
     public Route findByName(String name) {
@@ -65,9 +63,6 @@ public class RouteService {
         if (routeModel.getBegin() != null) {
             route.setBegin(routeModel.getBegin());
         }
-        if (routeModel.getStops() != null) {
-            route.setStops(routeModel.getStops());
-        }
         if (routeModel.getFinish() != null) {
             route.setFinish(routeModel.getFinish());
         }
@@ -77,12 +72,11 @@ public class RouteService {
         if (routeModel.getEndDate() != null) {
             route.setEndDate(routeModel.getEndDate());
         }
-        return routeRepository.save(route);
+        return routeRepository.saveAndFlush(route);
     }
 
     public Route update(Route route) {
-        System.out.println("Update route: "+route);
-        return routeRepository.save(route);
+        return routeRepository.saveAndFlush(route);
     }
 
 }

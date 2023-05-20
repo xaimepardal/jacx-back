@@ -5,6 +5,7 @@ import com.apm.jacx.model.dtos.Friend;
 import com.apm.jacx.repository.AppUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +24,7 @@ public class FriendService {
             throw new RuntimeException("amigo no encontrado");
         } else {
             user.getFriends().add(friend);
-            userRepository.save(user);
+            userRepository.saveAndFlush(user);
 
             List<Friend> listFriends = new ArrayList<>();
             for (AppUser appUser : user.getFriends()) {
@@ -58,7 +59,7 @@ public class FriendService {
             throw new RuntimeException("amigo no encontrado");
         } else {
             user.getFriends().remove(friend);
-            userRepository.save(user);
+            userRepository.saveAndFlush(user);
         }
     }
 

@@ -6,6 +6,7 @@ import com.apm.jacx.model.dtos.RouteModel;
 import com.apm.jacx.repository.PlaylistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,7 +17,7 @@ public class PlaylistService {
     private PlaylistRepository playlistRepository;
 
     public Playlist create (Playlist playlist) {
-        return playlistRepository.save(playlist);
+        return playlistRepository.saveAndFlush(playlist);
     }
 
     public List<Playlist> getAll() {

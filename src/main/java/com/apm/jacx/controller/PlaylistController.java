@@ -28,7 +28,7 @@ public class PlaylistController {
     private ResponseEntity<Playlist> create(@RequestBody Playlist playlist, @RequestHeader(HttpHeaders.AUTHORIZATION) String token) throws URISyntaxException {
         AppUser appUser = userService.checkToken(token);
         if (appUser != null) {
-            playlist.setOwner(appUser);
+            playlist.setAppUser(appUser);
             Playlist tmp = playlistService.create(playlist);
             return ResponseEntity.created(new URI("api/playlist/" + tmp.getId())).body(tmp);
         } else {

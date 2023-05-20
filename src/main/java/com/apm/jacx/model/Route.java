@@ -1,19 +1,20 @@
 package com.apm.jacx.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Entity(name = "t_route")
-@Table(name = "t_route")
+@Entity
 @Data
 public class Route {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", unique = true)
+    @Column(name = "route_id", unique = true)
     private Long id;
 
     @Column(name = "name", unique = true)
@@ -21,9 +22,6 @@ public class Route {
 
     @Column(name = "begin")
     private String begin;
-
-    @Column(name = "stops")
-    private List<String> stops;
 
     @Column(name = "finish")
     private String finish;
@@ -34,20 +32,30 @@ public class Route {
     @Column(name = "end_date")
     private LocalDateTime endDate;
 
+    @ToString.Exclude
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "route")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private List<WayPoint> wayPoints;
+
+    @ToString.Exclude
     @ManyToMany(fetch = FetchType.LAZY)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private List<AppUser> users;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @ToString.Exclude
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "route")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private List<Image> images;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @ToString.Exclude
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "route")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private List<Playlist> playlists;
 
+    @ToString.Exclude
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "owner")
+    @JoinColumn(name = "app_user_id")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    private AppUser owner;
+    private AppUser appUser;
 }

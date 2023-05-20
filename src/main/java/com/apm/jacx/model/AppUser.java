@@ -4,18 +4,18 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.ToString;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Set;
 
-@Entity(name = "t_app_user")
-@Table(name = "t_app_user")
+@Entity
 @Data
 public class AppUser {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", unique = true)
+    @Column(name = "app_user_id", unique = true)
     private Long id;
 
     @Column(unique = true, nullable = false)
@@ -39,27 +39,30 @@ public class AppUser {
     @Column(unique = true)
     private String email;
 
+    @ToString.Exclude
     @ManyToMany(fetch = FetchType.LAZY)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private List<AppUser> friends;
 
     @JsonIgnore
+    @ToString.Exclude
     @ManyToMany(fetch = FetchType.LAZY)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    private Set<Route> route;
+    private List<Route> route;
 
-    @JsonIgnore
-    @OneToMany(fetch = FetchType.LAZY)
+    @ToString.Exclude
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "appUser")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private List<Playlist> playlists;
 
-    @JsonIgnore
-    @OneToMany(fetch = FetchType.LAZY)
+    @ToString.Exclude
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "appUser")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private List<Image> images;
 
     @JsonIgnore
-    @OneToMany(fetch = FetchType.LAZY)
+    @ToString.Exclude
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "appUser")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private List<Route> routesCreated;
 }
