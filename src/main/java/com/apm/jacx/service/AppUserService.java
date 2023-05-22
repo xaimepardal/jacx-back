@@ -23,7 +23,6 @@ public class AppUserService {
     private AppUserRepository userRepository;
 
     public AppUser create(AppUser appUser) {
-        System.out.println(appUser);
         String sha256hex = Hashing.sha256()
                 .hashString(appUser.getPassword(), StandardCharsets.UTF_8)
                 .toString();
@@ -60,6 +59,9 @@ public class AppUserService {
         }
         if (appUser.getEmail() != null) {
             user.setEmail(appUser.getEmail());
+        }
+        if (appUser.getPassword() != null) {
+            user.setPassword(appUser.getPassword());
         }
         return userRepository.saveAndFlush(user);
     }
