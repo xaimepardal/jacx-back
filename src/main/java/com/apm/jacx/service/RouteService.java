@@ -1,16 +1,15 @@
 package com.apm.jacx.service;
 
 import com.apm.jacx.model.AppUser;
-import com.apm.jacx.model.Image;
 import com.apm.jacx.model.Route;
+import com.apm.jacx.model.WayPoint;
 import com.apm.jacx.model.dtos.RouteModel;
+import com.apm.jacx.model.dtos.WaypointModel;
 import com.apm.jacx.repository.RouteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class RouteService {
@@ -24,10 +23,10 @@ public class RouteService {
             route.setName(routeModel.getName());
         }
         if (routeModel.getBegin() != null) {
-            route.setBegin(routeModel.getBegin());
+            route.setBegin(getWayPoint(routeModel.getBegin()));
         }
         if (routeModel.getFinish() != null) {
-            route.setFinish(routeModel.getFinish());
+            route.setFinish(getWayPoint(routeModel.getFinish()));
         }
         if (routeModel.getStartDate() != null) {
             route.setStartDate(routeModel.getStartDate());
@@ -61,10 +60,10 @@ public class RouteService {
             route.setName(routeModel.getName());
         }
         if (routeModel.getBegin() != null) {
-            route.setBegin(routeModel.getBegin());
+            route.setBegin(getWayPoint(routeModel.getBegin()));
         }
         if (routeModel.getFinish() != null) {
-            route.setFinish(routeModel.getFinish());
+            route.setFinish(getWayPoint(routeModel.getFinish()));
         }
         if (routeModel.getStartDate() != null) {
             route.setStartDate(routeModel.getStartDate());
@@ -77,6 +76,17 @@ public class RouteService {
 
     public Route update(Route route) {
         return routeRepository.saveAndFlush(route);
+    }
+    
+    private WayPoint getWayPoint(WaypointModel waypointModel) {
+    	WayPoint waypoint = new WayPoint();
+    	waypoint.setId(waypointModel.getId());
+    	waypoint.setName(waypointModel.getName());
+    	waypoint.setOrderPosition(waypointModel.getOrderPosition());
+    	waypoint.setPoint(waypointModel.getPoint());
+    	waypoint.setColor(waypointModel.getColor());
+    	waypoint.setUrl(waypointModel.getUrl());
+    	return waypoint;
     }
 
 }

@@ -27,7 +27,7 @@ public class WayPoint {
     private String url;
 
     @Column(name = "color")
-    private String color;
+    private Integer color;
 
     @ToString.Exclude
     @JsonIgnore
