@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.ToString;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -20,17 +20,19 @@ public class Route {
     @Column(name = "name", unique = true)
     private String name;
 
-    @Column(name = "begin")
-    private String begin;
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "begin")
+    private WayPoint begin;
 
-    @Column(name = "finish")
-    private String finish;
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "finish")
+    private WayPoint finish;
 
     @Column(name = "start_date")
-    private LocalDateTime startDate;
+    private LocalDate startDate;
 
     @Column(name = "end_date")
-    private LocalDateTime endDate;
+    private LocalDate endDate;
 
     @ToString.Exclude
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "route")
