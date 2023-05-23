@@ -15,7 +15,7 @@ public class Image {
         @Column(name = "image_id", unique = true)
         private Long id;
 
-        @Column(name = "base64")
+        @Column(name = "base64", length = 10000000)
         private String base64;
 
         @ToString.Exclude
