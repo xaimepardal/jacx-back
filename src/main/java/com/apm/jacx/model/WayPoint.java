@@ -23,7 +23,7 @@ public class WayPoint {
     @Column(name = "point")
     private String point;
 
-    @Column(name = "url")
+    @Column(name = "url", length = 10000)
     private String url;
 
     @Column(name = "color")
