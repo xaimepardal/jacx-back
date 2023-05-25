@@ -24,11 +24,14 @@ C:\Users\Juan\Desktop\MUEI\APM\jacx-back\src\main\java\com\apm\jacx\model\dtos\R
 C:\Users\Juan\Desktop\MUEI\APM\jacx-back\src\main\java\com\apm\jacx\model\dtos\Friend.java
 C:\Users\Juan\Desktop\MUEI\APM\jacx-back\src\main\java\com\apm\jacx\model\dtos\LoginResponse.java
 C:\Users\Juan\Desktop\MUEI\APM\jacx-back\src\main\java\com\apm\jacx\model\Route.java
+C:\Users\Juan\Desktop\MUEI\APM\jacx-back\src\main\java\com\apm\jacx\service\EmailService.java
+C:\Users\Juan\Desktop\MUEI\APM\jacx-back\src\main\java\com\apm\jacx\controller\EmailController.java
 C:\Users\Juan\Desktop\MUEI\APM\jacx-back\src\main\java\com\apm\jacx\model\dtos\RouteUser.java
 C:\Users\Juan\Desktop\MUEI\APM\jacx-back\src\main\java\com\apm\jacx\controller\FriendsController.java
 C:\Users\Juan\Desktop\MUEI\APM\jacx-back\src\main\java\com\apm\jacx\JacxApplication.java
 C:\Users\Juan\Desktop\MUEI\APM\jacx-back\src\main\java\com\apm\jacx\repository\ImagesRepository.java
 C:\Users\Juan\Desktop\MUEI\APM\jacx-back\src\main\java\com\apm\jacx\model\dtos\LoginModel.java
+C:\Users\Juan\Desktop\MUEI\APM\jacx-back\src\main\java\com\apm\jacx\email\EmailDetails.java
 C:\Users\Juan\Desktop\MUEI\APM\jacx-back\src\main\java\com\apm\jacx\model\dtos\AddFriendByUsername.java
 C:\Users\Juan\Desktop\MUEI\APM\jacx-back\src\main\java\com\apm\jacx\service\FriendService.java
 C:\Users\Juan\Desktop\MUEI\APM\jacx-back\src\main\java\com\apm\jacx\model\WayPoint.java

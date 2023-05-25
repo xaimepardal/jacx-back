@@ -17,7 +17,7 @@ public class Route {
     @Column(name = "route_id", unique = true)
     private Long id;
 
-    @Column(name = "name", unique = true)
+    @Column(name = "name")
     private String name;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
