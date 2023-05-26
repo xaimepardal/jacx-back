@@ -202,7 +202,7 @@ public class RouteController {
 
             route.getWayPoints().add(wayPoint);
             route = routeService.update(route);
-            wayPoint.setRoute(route);
+            // wayPoint.setRoute(route);
             wayPoint.setOrderPosition(route.getWayPoints().size());
             wayPointService.create(wayPoint);
             return ResponseEntity.ok(route);
