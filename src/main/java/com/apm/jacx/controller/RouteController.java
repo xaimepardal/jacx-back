@@ -197,7 +197,7 @@ public class RouteController {
     private ResponseEntity<Route> addWaypointToRoute(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @RequestBody RouteWayPoint routeWayPoint) {
         AppUser appUser = userService.checkToken(token);
         if (appUser != null) {
-            Route route = routeService.findByName(routeWayPoint.getRouteName());
+            Route route = routeService.findById(routeWayPoint.getRouteId());
             WayPoint wayPoint = wayPointService.findById(routeWayPoint.getWaypointId());
 
             route.getWayPoints().add(wayPoint);
@@ -215,7 +215,7 @@ public class RouteController {
     private ResponseEntity<Route> deleteWaypointToRoute(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @RequestBody RouteWayPoint routeWayPoint) {
         AppUser appUser = userService.checkToken(token);
         if (appUser != null) {
-            Route route = routeService.findByName(routeWayPoint.getRouteName());
+            Route route = routeService.findById(routeWayPoint.getRouteId());
             WayPoint wayPoint = wayPointService.findById(routeWayPoint.getWaypointId());
 
             route.getWayPoints().remove(wayPoint);

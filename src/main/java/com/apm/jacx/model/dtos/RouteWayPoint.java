@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class RouteWayPoint {
-    private String routeName;
+    private Long routeId;
     private Long waypointId;
 }
