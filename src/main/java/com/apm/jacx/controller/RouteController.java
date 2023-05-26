@@ -77,6 +77,11 @@ public class RouteController {
         return ResponseEntity.ok(routeService.findByName(name));
     }
 
+    @GetMapping(value = "/route/id/{id}")
+    private ResponseEntity<Route> getByName(@PathVariable("id") Long id) {
+    	return ResponseEntity.ok(routeService.findById(id));
+    }
+
     @PostMapping(value = "/route/playlist")
     private ResponseEntity<Route> addPlaylistToRoute(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @RequestBody RoutePlaylist routePlaylist) {
         AppUser appUser = userService.checkToken(token);

@@ -53,6 +53,10 @@ public class RouteService {
     public Route findByName(String name) {
         return routeRepository.findByName(name);
     }
+    
+    public Route findById(Long id) {
+		return routeRepository.findById(id).orElse(null);
+	}
 
     public Route update(RouteModel routeModel) {
         Route route = routeRepository.getReferenceById(routeModel.getId());
