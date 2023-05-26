@@ -39,6 +39,7 @@ public class AppUser {
     @Column(unique = true)
     private String email;
 
+    @JsonIgnore
     @ToString.Exclude
     @ManyToMany(fetch = FetchType.LAZY)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
@@ -50,11 +51,13 @@ public class AppUser {
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private List<Route> route;
 
+    @JsonIgnore
     @ToString.Exclude
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "appUser")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private List<Playlist> playlists;
 
+    @JsonIgnore
     @ToString.Exclude
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "appUser")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
